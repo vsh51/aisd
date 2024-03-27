@@ -34,25 +34,29 @@ public:
             head = new node(priority, data, id, nullptr, nullptr);
             tail = head;
         }
+        
         else {
             node* tmpptr = head;
-            while (tmpptr->next != nullptr && tmpptr->next->priority >= priority) {
+            while (tmpptr != nullptr && tmpptr->priority >= priority) {
                 tmpptr = tmpptr->next;
             }
-            node* insert = new node(priority, data, id, tmpptr, tmpptr->next);
-            if (tmpptr->next != nullptr) {
-                tmpptr->next->prev = insert;
-                tmpptr->next = insert;
+
+            if (tmpptr == head) {
+                node* nn = new node(priority, data, id, nullptr, head);
+                head->prev = nn;
+                head = nn;
             }
-            else {
-                tmpptr->next = insert;
-                tail = insert;
+            else if (tmpptr == nullptr) {
+                node* nn = new node(priority, data, id, tail, nullptr);
+                tail->next = nn;
+                tail = nn;
             }
+            // process base case
         }
     };
 
-    datatype get() {
-        datatype rt = tail->data;
+    datatype pop() {
+        datatype rt = tail->prev->prev->prev->data;
 
         return rt;
     };
@@ -60,7 +64,9 @@ public:
 
 int main () {
     Queue<int> q;
-    q.add(3, 2, 3);
+    q.add(3, 2, 2);
+    q.add(3, 1, 2);
+    q.add(1, 25, 3);    
     q.add(2, 47, 4);
-    cout << q.get();
+    cout << q.pop();
 };
