@@ -29,21 +29,21 @@ TEST(QueueTests, pushIntTest) {
     EXPECT_TRUE(q.isEmpty());
 }
 
-TEST(QueueTests, frontTest) {
+// TEST(QueueTests, frontTest) {
 
-}
+// }
 
-TEST(QueueTests, backTest) {
+// TEST(QueueTests, backTest) {
     
-}
+// }
 
-TEST(QueueTests, sizeTest) {
+// TEST(QueueTests, sizeTest) {
     
-}
+// }
 
-TEST(QueueTests, emptyTest) {
+// TEST(QueueTests, emptyTest) {
     
-}
+// }
 
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);

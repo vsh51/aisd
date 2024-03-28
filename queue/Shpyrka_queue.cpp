@@ -63,14 +63,31 @@ public:
 
     datatype pop() {
         datatype dt = head->data;        
-        node* traschcan = head;
 
-        head->next->prev = nullptr;
-        head = head->next;
+        if (!isEmpty()) {
+            node* traschcan = head;
+            
+            if (head->next != nullptr) {
+                head->next->prev = nullptr;
+            }
+            if (head->next == nullptr) {
+                tail = nullptr;
+            }
 
-        delete traschcan;
-        --amount_of_items;
+            head = head->next;
+            delete traschcan;
+        }
+
 
         return dt;
     };
 };
+
+// int main() {
+//     Queue<string> q;
+//     q.push(1, "apple", 3);
+//     q.push(1, "huy", 3);
+//     q.push(1, "asd", 1);
+
+//     cout << q.pop() << "\n";
+// }
