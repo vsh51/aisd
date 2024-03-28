@@ -1,4 +1,5 @@
 #include <iostream>
+#include <queue>
 using namespace std;
 
 template <typename datatype>
@@ -37,7 +38,7 @@ public:
         
         else {
             node* tmpptr = head;
-            while (tmpptr != nullptr && tmpptr->priority >= priority) {
+            while (tmpptr != nullptr && priority >= tmpptr->priority) {
                 tmpptr = tmpptr->next;
             }
 
@@ -51,22 +52,27 @@ public:
                 tail->next = nn;
                 tail = nn;
             }
-            // process base case
+            else {
+                node* nn = new node(priority, data, id, tmpptr->prev, tmpptr);
+                tmpptr->prev->next = nn;
+                tmpptr->prev = nn;
+            }
         }
     };
 
     datatype pop() {
-        datatype rt = tail->prev->prev->prev->data;
+        datatype dt = head->data;        
+        node* traschcan = head;
 
-        return rt;
+        head->next->prev = nullptr;
+        head = head->next;
+
+        delete traschcan;
+
+        return dt;
     };
 };
 
 int main () {
-    Queue<int> q;
-    q.add(3, 2, 2);
-    q.add(3, 1, 2);
-    q.add(1, 25, 3);    
-    q.add(2, 47, 4);
-    cout << q.pop();
+
 };
