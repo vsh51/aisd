@@ -30,7 +30,7 @@ public:
         return head == nullptr;
     };
 
-    void add(int id, datatype data, int priority = 0) {
+    void push(int id, datatype data, int priority = 0) {
         if (isEmpty()) {
             head = new node(priority, data, id, nullptr, nullptr);
             tail = head;
@@ -58,6 +58,7 @@ public:
                 tmpptr->prev = nn;
             }
         }
+        ++amount_of_items;
     };
 
     datatype pop() {
@@ -68,6 +69,7 @@ public:
         head = head->next;
 
         delete traschcan;
+        --amount_of_items;
 
         return dt;
     };
