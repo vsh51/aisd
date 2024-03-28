@@ -29,21 +29,70 @@ TEST(QueueTests, pushIntTest) {
     EXPECT_TRUE(q.isEmpty());
 }
 
-// TEST(QueueTests, frontTest) {
+TEST(QueueTests, frontTest) {
+    Queue<int> q;
 
-// }
+    q.push(1, 1, 3);
+    EXPECT_EQ(1, q.front());
 
-// TEST(QueueTests, backTest) {
+    q.push(2, 2, 3);
+    EXPECT_EQ(1, q.front());
+
+    q.push(3, 3, 4);
+    EXPECT_EQ(3, q.front());
+
+    q.push(4, 4, 4);
+    EXPECT_EQ(3, q.front());
     
-// }
+    q.push(5, 5, 3);
+    EXPECT_EQ(3, q.front());
+}
 
-// TEST(QueueTests, sizeTest) {
-    
-// }
+TEST(QueueTests, backTest) {
+    Queue<int> q;
 
-// TEST(QueueTests, emptyTest) {
+    q.push(1, 1, 3);
+    EXPECT_EQ(1, q.back());
+
+    q.push(2, 2, 3);
+    EXPECT_EQ(2, q.back());
+
+    q.push(3, 3, 4);
+    EXPECT_EQ(2, q.front());
+
+    q.push(4, 4, 4);
+    EXPECT_EQ(2, q.front());
     
-// }
+    q.push(5, 5, 3);
+    EXPECT_EQ(5, q.front());
+}
+
+TEST(QueueTests, sizeTest) {
+    Queue<int> q;
+
+    q.push(1, 1, 3);
+    EXPECT_EQ(1, q.size());
+
+    q.push(2, 2, 3);
+    EXPECT_EQ(2, q.size());
+
+    q.push(3, 3, 4);
+    EXPECT_EQ(3, q.size());
+
+    q.pop();
+    EXPECT_EQ(2, q.size());
+}
+
+TEST(QueueTests, emptyTest) {
+    Queue<string> q;
+    EXPECT_TRUE(q.isEmpty());
+    
+    q.push(1, "apple", 3);
+    EXPECT_FALSE(q.isEmpty());
+
+    q.pop();
+    EXPECT_TRUE(q.isEmpty());
+}
 
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);

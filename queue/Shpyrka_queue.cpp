@@ -81,6 +81,21 @@ public:
 
         return dt;
     };
+
+    datatype front() {
+        // todo
+        return datatype();
+    }
+
+    datatype back() {
+        // todo
+        return datatype();
+    }
+
+    unsigned int size() {
+        // todo
+        return int();
+    }
 };
 
 // int main() {
