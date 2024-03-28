@@ -38,7 +38,7 @@ public:
         
         else {
             node* tmpptr = head;
-            while (tmpptr != nullptr && priority >= tmpptr->priority) {
+            while (tmpptr != nullptr && priority <= tmpptr->priority) {
                 tmpptr = tmpptr->next;
             }
 
@@ -71,8 +71,4 @@ public:
 
         return dt;
     };
-};
-
-int main () {
-
 };
