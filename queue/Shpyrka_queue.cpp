@@ -3,17 +3,16 @@
 using namespace std;
 
 template <typename datatype>
-class Queue {
-private:
+class PriorityQueue {
+protected:
     struct node {
         datatype data;
         int priority;
-        unsigned int id;
         node* prev;
         node* next;
 
-        node(int priority = 0, datatype data = datatype(), unsigned int id = 0, node* prev = nullptr, node* next = nullptr):
-            priority(priority), data(data), id(id), prev(prev), next(next) {};
+        node(int priority = 0, datatype data = datatype(), node* prev = nullptr, node* next = nullptr):
+            priority(priority), data(data), prev(prev), next(next) {};
     };
 
     node* head;
@@ -21,39 +20,44 @@ private:
     unsigned int amount_of_items;
 
 public:
-    Queue() {
+    class is_empty_error : public logic_error {
+        public:
+            is_empty_error(const char* mess = "the queue is empty") : logic_error(mess) {};
+    };
+
+public:
+    PriorityQueue() {
         this->head = nullptr;
         this->tail = nullptr;
+        amount_of_items = 0;
     };
 
     bool isEmpty() {
         return head == nullptr;
     };
 
-    void push(int id, datatype data, int priority = 0) {
+    virtual void push(datatype data, int priority = 0) {
         if (isEmpty()) {
-            head = new node(priority, data, id, nullptr, nullptr);
+            head = new node(priority, data, nullptr, nullptr);
             tail = head;
         }
-        
         else {
             node* tmpptr = head;
             while (tmpptr != nullptr && priority <= tmpptr->priority) {
                 tmpptr = tmpptr->next;
             }
-
             if (tmpptr == head) {
-                node* nn = new node(priority, data, id, nullptr, head);
+                node* nn = new node(priority, data, nullptr, head);
                 head->prev = nn;
                 head = nn;
             }
             else if (tmpptr == nullptr) {
-                node* nn = new node(priority, data, id, tail, nullptr);
+                node* nn = new node(priority, data, tail, nullptr);
                 tail->next = nn;
                 tail = nn;
             }
             else {
-                node* nn = new node(priority, data, id, tmpptr->prev, tmpptr);
+                node* nn = new node(priority, data, tmpptr->prev, tmpptr);
                 tmpptr->prev->next = nn;
                 tmpptr->prev = nn;
             }
@@ -62,9 +66,8 @@ public:
     };
 
     datatype pop() {
-        datatype dt = head->data;        
-
         if (!isEmpty()) {
+            datatype dt = head->data;
             node* traschcan = head;
             
             if (head->next != nullptr) {
@@ -76,33 +79,50 @@ public:
 
             head = head->next;
             delete traschcan;
+            --amount_of_items;
+            
+            return dt;
         }
-
-
-        return dt;
+        else {
+            throw is_empty_error();
+        }
     };
 
-    datatype front() {
-        // todo
-        return datatype();
+    datatype& front() {
+        if(!isEmpty()) return head->data;
+        else throw is_empty_error();
     }
 
-    datatype back() {
-        // todo
-        return datatype();
+    datatype& back() {
+        if(!isEmpty()) return tail->data;
+        else throw is_empty_error();
     }
 
     unsigned int size() {
-        // todo
-        return int();
+        return amount_of_items;
+    }
+
+    void print(ostream& os) {
+        node* tmpptr = head;
+        while (tmpptr != nullptr) {
+            os << tmpptr->data << " ";
+            tmpptr = tmpptr->next;
+        }
+        os << "\n";
+    }
+
+    ~PriorityQueue() {
+        node* tmpptr = head;
+        while (!isEmpty()) {
+            pop();
+        }
     }
 };
 
-// int main() {
-//     Queue<string> q;
-//     q.push(1, "apple", 3);
-//     q.push(1, "huy", 3);
-//     q.push(1, "asd", 1);
-
-//     cout << q.pop() << "\n";
-// }
+template <typename datatype>
+class Queue : public PriorityQueue<datatype> {
+public:
+    virtual void push(datatype data) {
+        PriorityQueue<datatype>::push(data);
+    };
+};
