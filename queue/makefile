@@ -1,5 +1,5 @@
 test:
-	g++ queue_tests.cpp Shpyrka_queue.cpp -o q_tests -lgtest -lgmock -pthread
+	g++ queue_tests.cpp Shpyrka_queue.cpp -o Queue -lgtest -lgmock -pthread
 	./Queue
 
 dev:
