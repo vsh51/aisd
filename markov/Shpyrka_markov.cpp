@@ -28,8 +28,20 @@ public:
 	};
 
 	string get_init() const { return init_str; };
+	
+	string get_computed() {
+		if (init_str != resulting_str) {
+			return resulting_str;
+		}
+		else {
+			compute();
+			return resulting_str;
+		}
+	};
 
-	void addRule(string f, string t, bool terminational = false) {
+	int get_rules_size() const { return rules_size; };
+
+	void add_rule(string f, string t, bool terminational = false) {
 		rule* new_rules =  new rule[rules_size + 1];
 		for (int i = 0; i < rules_size; ++i) {
 			new_rules[i] = rules[i];
@@ -42,9 +54,9 @@ public:
 		++rules_size;
 	};
 
-	void showRules() {
+	void show_rules(ostream& os) {
 		for (int i = 0; i < rules_size; ++i) {
-			cout << rules[i].from << " -> " << rules[i].to << "\n";
+			os << rules[i].from << " -> " << rules[i].to << "\n";
 		};
 	};
 
@@ -73,15 +85,4 @@ private:
 	bool contains(string s1, string s2) {
 		return s1.find(s2) != string::npos;
 	};
-};
-
-int main() {
-	MarkovString mk("bacaabaa");
-
-
-	mk.addRule("ab", "b");
-	mk.addRule("ac", "c");
-	mk.addRule("aa", "a");
-	// mk.showRules();
-	cout << mk.get_init() << " --> " << mk.compute() << "\n";
 };
