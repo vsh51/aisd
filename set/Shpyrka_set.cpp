@@ -7,11 +7,11 @@ private:
     using BYTE = unsigned int;
     
     BYTE container;
-    int hv = 15;
+    int hv = 16;
     int lv = 0;
 
     bool valid(size_t data) const {
-        return data >= lv && data <= hv;
+        return data >= lv && data < hv;
     };
 
 public:
