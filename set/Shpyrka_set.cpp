@@ -18,14 +18,16 @@ public:
     Set() : container(BYTE()) {};
     Set(BYTE b) : container(b) {};
 
-    void insert(size_t data) {
+    Set& insert(size_t data) {
         if (!valid(data)) throw out_of_range("data is not valid");
         container |= (1 << data - 1);
+        return *this;
     };
 
-    void pop(size_t data) {
+    Set& pop(size_t data) {
         if (!valid(data)) throw out_of_range("data is not valid");
         container &= ~(1 << data - 1);
+        return *this;
     }
 
     bool contain(size_t data) const {
@@ -46,6 +48,10 @@ public:
             this->container = other.container;
         }
         return *this;
+    }
+
+    bool operator==(const Set& other) {
+        return this->container == other.container;
     }
 
     Set operator&(const Set& other) const {
