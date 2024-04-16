@@ -7,7 +7,7 @@ private:
     using BYTE = unsigned int;
     
     BYTE container;
-    int hv = 16;
+    int hv = 31;
     int lv = 0;
 
     bool valid(size_t data) const {
