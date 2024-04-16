@@ -3,7 +3,7 @@
 #include <sstream>
 using namespace std;
 
-const int HV = 16;
+const int HV = 32;
 
 TEST(Set, contain_and_insert_test) {
     Set st;
