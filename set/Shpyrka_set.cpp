@@ -11,7 +11,7 @@ private:
     int lv = 0;
 
     bool valid(size_t data) const {
-        return data >= lv && data <= hv;
+        return data >= lv && data < hv;
     };
 
 public:
