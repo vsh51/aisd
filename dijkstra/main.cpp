@@ -23,5 +23,10 @@ int main() {
 
     Graph G(gp, 5);
 
-    G.dijkstra_algorythm(0, 4);
+    vector<int> res = G.dijkstra_algorythm(0, 4).first;
+
+    cout << "Shortest path from 0 to 4: ";
+    for (int i = 0; i < res.size(); ++i) {
+        cout << res[i] << " ";
+    };
 }

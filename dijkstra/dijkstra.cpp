@@ -38,14 +38,14 @@ public:
         }
     }
 
-    void dijkstra_algorythm(int v1, int v2) {
+    pair<vector<int>, int> dijkstra_algorythm(int v1, int v2) {
         if (v1 < this->n && v2 < this->n) {            
             vector<int> distance(n, __INT32_MAX__);
             set<pair<int, int>> unset_vert;
 
             distance[v1] = 0;
 
-            for (int i = 0; i < n - 1; ++i) {
+            for (int i = 0; i < n; ++i) {
                 unset_vert.insert({distance[i], i});
             };
 
@@ -67,10 +67,8 @@ public:
             }
 
             if (previous[v2] == -1) {
-                cout << "No path found from vertex " << v1 << " to vertex " << v2 << "\n";
+                throw "No path";
             } else {
-                cout << "Shortest path from vertex " << v1 << " to vertex " << v2 << ": ";
-                
                 int current = v2;
                 while (current != -1) {
                     way.push_back(current);
@@ -79,11 +77,7 @@ public:
 
                 reverse(way.begin(), way.end());
                 
-                for (vector<int>::iterator it = way.begin(); it != way.end(); ++it) {
-                    cout << *it << " ";
-                }
-                
-                cout << "\n";
+                return pair(way, distance[v2]);
             }
         }
         else {
