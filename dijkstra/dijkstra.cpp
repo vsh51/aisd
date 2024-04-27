@@ -22,6 +22,7 @@ public:
 
 private:
     vector<vector<edge>> G;
+    int** adjacency_matrix;
     int n;
 
 public:
@@ -29,8 +30,12 @@ public:
         this->n = vertices;
 
         G.resize(vertices);
+
+        adjacency_matrix = new int*[vertices];
         for (int i = 0; i < vertices; ++i) {
+            adjacency_matrix[i] = new int[vertices];
             for (int j = 0; j < vertices; ++j) {
+                adjacency_matrix[i][j] = adjacency_list[i][j];
                 if (adjacency_list[i][j] != 0) {
                     G[i].push_back(edge(i, j, adjacency_list[i][j]));
                 }

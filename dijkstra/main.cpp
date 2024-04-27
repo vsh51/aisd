@@ -29,4 +29,5 @@ int main() {
     for (int i = 0; i < res.size(); ++i) {
         cout << res[i] << " ";
     };
+    cout << "\b, with path length: " << G.dijkstra_algorythm(0, 4).second << "\n\n";
 }
