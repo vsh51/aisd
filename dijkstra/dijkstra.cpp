@@ -26,7 +26,7 @@ private:
     int n;
 
 public:
-    Graph(int** adjacency_list, int vertices) {
+    Graph(int** adjacency_mt, int vertices) {
         this->n = vertices;
 
         G.resize(vertices);
@@ -35,9 +35,9 @@ public:
         for (int i = 0; i < vertices; ++i) {
             adjacency_matrix[i] = new int[vertices];
             for (int j = 0; j < vertices; ++j) {
-                adjacency_matrix[i][j] = adjacency_list[i][j];
-                if (adjacency_list[i][j] != 0) {
-                    G[i].push_back(edge(i, j, adjacency_list[i][j]));
+                adjacency_matrix[i][j] = adjacency_mt[i][j];
+                if (adjacency_mt[i][j] != 0) {
+                    G[i].push_back(edge(i, j, adjacency_mt[i][j]));
                 }
             }
         }
